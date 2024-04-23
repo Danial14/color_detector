@@ -1,4 +1,7 @@
-from extract_color import extractColorsFromImage, parseColors, getColorName, findClosestColor, writeColorsToJsonFile, updateFilepathAndExtractColors
+from extract_color import extractColorsFromImage, parseColors, getColorName, findClosestColor, writeColorsToJsonFile, updateFilePath
+
+def testUpdateFilepath():
+    assert updateFilePath("../Capture.png") == True
 
 def testExtractColors():
     assert len(extractColorsFromImage()) > 0
@@ -14,6 +17,3 @@ def testClosestColor():
 
 def testWriteColorsToJsonFile():
     assert writeColorsToJsonFile() == True
-
-def testUpdateFilepathAndExtractColors():
-    assert updateFilepathAndExtractColors("av.txt") == True

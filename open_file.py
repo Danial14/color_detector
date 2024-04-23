@@ -1,10 +1,10 @@
 from tkinter import filedialog as fd
-from extract_color import writeColorsToJsonFile, updateFilepathAndExtractColors
+from extract_color import writeColorsToJsonFile, updateFilePath
 def openFile():
     try:
         file = fd.askopenfile().name
         print(f"path: {file}")
-        updateFilepathAndExtractColors(file)
+        updateFilePath(file)
         writeColorsToJsonFile()
     except Exception as e:
         print("error")

@@ -1,8 +1,8 @@
 from colorgram import extract
 import webcolors, json
 filePath = ""
-extractedColors = None
-def updateFilepathAndExtractColors(path):
+extractedColors = []
+def updateFilePath(path):
     global filePath, extractedColors
     if isinstance(path, str):
         filePath = path
@@ -20,29 +20,28 @@ def extractColorsFromImage():
         return extract(filePath, number_of_colors= 2 ** 32)
     except Exception as e:
         print("File not found or this is not a valid image file")
+        return []
 
 def writeColorsToJsonFile():
     parsedColors = parseColors()
     colors = {}
-    if parsedColors != None:
-        for parsedColor in parsedColors:
+    for parsedColor in parsedColors:
             color = getColorName(color=parsedColor)
             colors[color] = str(parsedColor)
-        try:
-            with open("colors.json", mode="w") as jsonFile:
-                json.dump(colors, fp=jsonFile, indent=5)
-                return True
+    try:
+        with open("colors.json", mode="w") as jsonFile:
+            json.dump(colors, fp=jsonFile, indent=5)
+            return True
             
-        except Exception as e:
-            return False
+    except Exception as e:
+        return False
 
 def parseColors():
     parsedColors = []
-    if extractedColors != None:
-        for color in extractedColors:
-            rgbColor = color.rgb
-            parsedColors.append((rgbColor.r, rgbColor.g, rgbColor.b))
-        return parsedColors
+    for color in extractedColors:
+        rgbColor = color.rgb
+        parsedColors.append((rgbColor.r, rgbColor.g, rgbColor.b))
+    return parsedColors
 
 def getColorName(color):
     try:
